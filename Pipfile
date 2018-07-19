@@ -9,6 +9,7 @@ name = "pypi"
 celery = "*"
 django = "*"
 django-celery-results = "*"
+pika = "*"
 
 [requires]
 python_version = "3.6"

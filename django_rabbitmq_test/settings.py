@@ -38,11 +38,13 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_celery_results',
+    'myapp.apps.MyappConfig',
 ]
 
 # CELERY settings
 CELERY_BROKER_URL = 'pyamqp://testuser:testpassword@localhost:5672/testhost'
 CELERY_RESULT_BACKEND = 'django-db'
+CELERY_ACCEPT_CONTENT = ['application/json']
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

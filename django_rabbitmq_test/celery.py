@@ -2,18 +2,23 @@ from __future__ import absolute_import, unicode_literals
 import os
 
 from celery import Celery
-from celery.utils.log import get_logger
+
+from kombu import Exchange, Queue
 
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'django_rabbitmq_test.settings')
 
 
 app = Celery('django_rabbitmq_test')
-# include=['django_rabbitmq_test.tasks'])
 
 app.config_from_object('django.conf:settings', namespace='CELERY')
 
 app.autodiscover_tasks()
+
+
+app.conf.task_queues = [
+    Queue('celery', Exchange('tasks'), routing_key='tasks'), # queue_arguments={'x-max-priority': 10}),
+]
 
 
 @app.task(bind=True)
